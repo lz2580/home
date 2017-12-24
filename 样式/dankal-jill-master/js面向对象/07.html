@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂方式之原型</title>
+    <script>
+        /**
+         * Created by Jill on 16/11/23.
+         */
+
+        function CreatePerson(name) {
+            this.name = name;
+        }
+        CreatePerson.prototype.showName = function () {
+            alert(this.name);
+        }
+        //new后面调用的函数叫做构造函数
+        var p1 = new CreatePerson('jill');
+        var p2 = new CreatePerson('vane');
+
+        alert(p1.showName == p2.showName);//true
+    </script>
+</head>
+<body>
+
+</body>
+</html>

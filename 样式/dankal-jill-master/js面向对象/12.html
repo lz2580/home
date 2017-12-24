@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象的拖拽</title>
+    <style>
+        #div1{width:100px;height:100px;background: red;position: absolute;}
+    </style>
+    <!--<script>-->
+        <!--window.onload = function () {-->
+            <!--var oDiv = document.getElementById('div1');-->
+            <!---->
+            <!--var disX = 0;-->
+            <!--var disY = 0;-->
+            <!---->
+            <!--oDiv.onmousedown =function (ev) {-->
+                <!--var ev = ev || window.event;-->
+                <!--disX = ev.clientX - oDiv.offsetLeft;-->
+                <!--disY = ev.clientY - oDiv.offsetTop;-->
+
+                <!--document.onmousemove = function(ev){-->
+                    <!--var ev = ev || window.event;-->
+                    <!--oDiv.style.left = ev.clientX - disX + 'px';-->
+                    <!--oDiv.style.top = ev.clientY - disY + 'px';-->
+                <!--};-->
+                <!--document.onmouseup = function(){-->
+                    <!--document.onmousemove = null;-->
+                    <!--document.onmouseup = null;-->
+                <!--};-->
+                <!--return false;-->
+            <!--}-->
+        <!--}-->
+    <!--</script>-->
+    <script>
+        var oDiv = null;
+        var disX = 0;
+        var disY = 0;
+        window.onload = function () {
+            oDiv = document.getElementById('div1');
+            init();
+            function init() {
+                oDiv.onmousedown = fnDown;
+            }
+            function fnDown(ev) {
+                var ev = ev || window.event;
+                disX = ev.clientX - oDiv.offsetLeft;
+                disY = ev.clientY - oDiv.offsetTop;
+
+                document.onmousemove = fnMove;
+                document.onmouseup = fnUp;
+                return false;
+            }
+            function fnMove(ev){
+                var ev = ev || window.event;
+                oDiv.style.left = ev.clientX - disX + 'px';
+                oDiv.style.top = ev.clientY - disY + 'px';
+            };
+            function fnUp(){
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            var drag = new Drag('div1');
+            drag.init();
+        }
+        function Drag(id) {
+            //this对象
+            this.oDiv = document.getElementById(id);
+            this.disX = 0;
+            this.disY = 0;
+        }
+        Drag.prototype.init = function() {
+            //this对象
+            var This = this;
+            this.oDiv.onmousedown = function(ev){
+                var ev = ev || window.event;//紧跟事件函数
+                This.fnDown(ev);
+                return false;//紧跟事件函数
+            }
+
+        }
+        Drag.prototype.fnDown = function(ev) {
+            //this－this.oDiv 是do，修改指向
+            //var ev = ev || window.event;(紧跟事件函数)
+            var This = this;
+            this.disX = ev.clientX - this.oDiv.offsetLeft;
+            this.disY = ev.clientY - this.oDiv.offsetTop;
+
+            document.onmousemove = function(ev){
+                var ev = ev || window.event;
+                This.fnMove(ev);
+            }
+            document.onmouseup = this.fnUp;
+            //return false;//紧跟事件函数
+        }
+        Drag.prototype.fnMove = function(ev){
+            //this－this.oDiv 是do，修改指向
+
+            this.oDiv.style.left = ev.clientX - this.disX + 'px';
+            this.oDiv.style.top = ev.clientY - this.disY + 'px';
+        };
+        Drag.prototype.fnUp = function(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

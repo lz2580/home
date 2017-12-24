@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象好处－复用</title>
+    <style>
+        #div1 div,#div2 div{width:200px;height:200px;border:1px solid #000;display:none;}
+        .active{background: red;}
+    </style>
+    <script>
+        window.onload = function () {
+            var tab = new Tab('div1');//记得大写
+            tab.init();//调用初始化
+
+            var tab2 = new Tab('div2');//记得大写
+            tab2.init();//调用初始化
+            tab2.autoPlay();//调用自动播放方法
+        }
+        function Tab(id) {
+            //局部变量不是一个对象的属性，所以这里要用全局变量
+            //this指向tab
+            this.oParent = document.getElementById(id);
+            this.aInput = this.oParent.getElementsByTagName('input');
+            this.aDiv = this.oParent.getElementsByTagName('div');
+            this.iNow = 0;
+
+        }
+        //函数就是方法，prototype:要写在构造函数下面
+        Tab.prototype.init =function () {
+            var This = this;
+            //this ,看在哪调用->tab
+            for(var i = 0; i<this.aInput.length; i++){
+                this.aInput[i].index = i;
+//                this.aInput[i].onclick = this.change;//为了让下面的this 指向对象，更改为
+                this.aInput[i].onclick = function () {
+                    This.change(this);
+                }
+            }
+        }
+        Tab.prototype.change =function (obj) {
+            //this ,在哪里调－点击的按钮，按钮不是对象
+            for(var i = 0; i<this.aInput.length; i++){
+                this.aInput[i].className = '';
+                this.aDiv[i].style.display = 'none';
+            }
+            obj.className = 'active';
+            this.aDiv[obj.index].style.display = 'block';
+        }
+        Tab.prototype.autoPlay = function(){
+            var This = this;
+            setInterval(function () {
+                if(This.iNow === This.aInput.length-1){
+                    This.iNow = 0;
+                }else{
+                    This.iNow++;
+                }
+                for(var i = 0; i<This.aInput.length; i++){
+                    This.aInput[i].className = '';
+                    This.aDiv[i].style.display = 'none';
+                }
+                This.aInput[This.iNow].className = 'active';
+                This.aDiv[This.iNow].style.display = 'block';
+            },2000);
+        }
+    </script>
+
+
+
+</head>
+<body>
+<div id="div1">
+    <input class="active" type="button"value="1">
+    <input type="button"value="2">
+    <input type="button"value="3">
+    <div style="display: block">111</div>
+    <div>222</div>
+    <div>333</div>
+</div>
+
+<div id="div2">
+    <input class="active" type="button"value="1">
+    <input type="button"value="2">
+    <input type="button"value="3">
+    <div style="display: block">111</div>
+    <div>222</div>
+    <div>333</div>
+</div>
+</body>
+</html>

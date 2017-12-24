@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象的选项卡</title>
+    <style>
+        #div1 div{width:200px;height:200px;border:1px solid #000;display:none;}
+        .active{background: red;}
+    </style>
+    <script>
+        /*
+         普通的写法
+         */
+        window.onload = function () {
+            var oParent = document.getElementById('div1');
+            var aInput = oParent.getElementsByTagName('input');
+            var aDiv = oParent.getElementsByTagName('div');
+
+            for(var i = 0; i<aInput.length; i++){
+                aInput[i].index = i;
+                aInput[i].onclick = function () {
+                    for(var i = 0; i<aInput.length; i++){
+                        aInput[i].className = '';
+                        aDiv[i].style.display = 'none';
+                    }
+                    this.className = 'active';
+                    aDiv[this.index].style.display = 'block';
+                }
+
+            }
+        }
+    </script>
+    <script>
+        /*
+         普通方法变型
+         a、尽量不要出现函数嵌套函数
+         b、可以有全局变量
+         c、把onload中不是赋值的语句放到单独函数中
+         */
+        var oParent = null;
+        var aInput = null;
+        var aDiv = null;
+        window.onload = function () {
+            oParent = document.getElementById('div1');
+            aInput = oParent.getElementsByTagName('input');
+            aDiv = oParent.getElementsByTagName('div');
+            init();
+
+            function init() {
+                for(var i = 0; i<aInput.length; i++){
+                    aInput[i].index = i;
+                    aInput[i].onclick = change;
+                }
+            }
+            function change() {
+                for(var i = 0; i<aInput.length; i++){
+                    aInput[i].className = '';
+                    aDiv[i].style.display = 'none';
+                }
+                this.className = 'active';
+                aDiv[this.index].style.display = 'block';
+            }
+        }
+    </script>
+    <script>
+        /*
+         改成面相对象
+         a、全局变量就是属性
+         b、函数就是方法
+         c、onload中创建对象
+
+         改this指向问题：事件或定时器，尽量让面向对象的this指向对象
+         */
+        window.onload = function () {
+            var tab = new Tab();//记得大写
+            tab.init();//调用初始化
+        }
+        function Tab() {
+            //局部变量不是一个对象的属性，所以这里要用全局变量
+            //this指向tab
+            this.oParent = document.getElementById('div1');
+            this.aInput = this.oParent.getElementsByTagName('input');
+            this.aDiv = this.oParent.getElementsByTagName('div');
+        }
+        //函数就是方法，prototype:要写在构造函数下面
+        Tab.prototype.init =function () {
+            var This = this;
+            //this ,看在哪调用->tab
+            for(var i = 0; i<this.aInput.length; i++){
+                this.aInput[i].index = i;
+//                this.aInput[i].onclick = this.change;//为了让下面的this 指向对象，更改为
+                    this.aInput[i].onclick = function () {
+                        This.change(this);
+                    }
+            }
+        }
+        Tab.prototype.change =function (obj) {
+            //this ,在哪里调－点击的按钮，按钮不是对象
+            for(var i = 0; i<this.aInput.length; i++){
+                this.aInput[i].className = '';
+                this.aDiv[i].style.display = 'none';
+            }
+            obj.className = 'active';
+            this.aDiv[obj.index].style.display = 'block';
+        }
+    </script>
+
+
+
+</head>
+<body>
+<div id="div1">
+    <input class="active" type="button"value="1">
+    <input type="button"value="2">
+    <input type="button"value="3">
+    <div style="display: block">111</div>
+    <div>222</div>
+    <div>333</div>
+</div>
+</body>
+</html>

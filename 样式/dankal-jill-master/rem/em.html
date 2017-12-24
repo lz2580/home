@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用单位em</title>
+    <style>
+        html {
+            padding: 22px;
+            background-color: #e6e5df;
+            font-size: 1.375em;
+            font-family: Georgia, serif;
+            color: #C50000;
+        }
+
+        .font_small {
+            margin-top: 22px;
+            border-top: 1px solid #cfcdc4;
+            border-left: 1px solid #cfcdc4;
+            padding: 22px 0 0 22px;
+            font-size: 0.773em;
+        }
+
+        .text_light {
+            float: right;
+            font-size: 0.818rem;
+            color: #a8a494;
+        }
+
+    </style>
+</head>
+<body>
+html { font-size: 1.375em; }
+<span class='text_light'>100% (22px)</span>
+<div class='font_small'>
+    <div class='text_light'>77.3% (17px)</div>
+    .font_small { font-size: 0.773em; }
+    <div class='font_small'>
+        <div class='text_light'>77.3% (13px)</div>
+        .font_small { font-size: 0.773em; }
+        <div class='font_small'>
+            <div class='text_light'>77.3% (10px)</div>
+            .font_small { font-size: 0.773em; }
+        </div>
+    </div>
+</div>
+</body>
+</html>

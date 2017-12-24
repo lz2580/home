@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>这个Demo是为了展示使用em和rem时候所展示效果的不同</title>
+    <style>
+        html {
+            padding: 1.25em 1.25em 0;
+            background-color: #e6e5df;
+            font-size: 1.375em;
+            font-family: Georgia, serif;
+            color: #C50000;
+        }
+
+        .content_width {
+            margin: 0 1.5em;
+        }
+
+        .boxone {
+            margin: 1.25em -1.25em 0;
+            padding: 1em 1.25em;
+            background-color: #cfcdc4;
+        }
+
+        .boxtwo {
+            margin: 1.25rem -1.25rem 0;
+            padding: 1rem 1.25rem;
+            background-color: #cfcdc4;
+        }
+
+        .font_small {
+            font-size: 0.682em;
+        }
+
+    </style>
+</head>
+<body>
+<div class='content_width'>
+    <p>这个Demo是为了展示使用em和rem时候所展示效果的不同.</p>
+    <div class='boxone'>
+        margin: 1.25em -1.25em 0;<br/>
+        padding: 1em 1.25em;
+    </div>
+    <div class='boxone font_small'>
+        margin: 1.25em -1.25em 0;<br/>
+        padding: 1em 1.25em;<br/>
+        font-size: 0.682em;
+    </div>
+    <div class='boxtwo'>
+        margin: 1.25rem -1.25rem 0;<br/>
+        padding: 1rem 1.25rem;
+    </div>
+    <div class='boxtwo font_small'>
+        margin: 1.25rem -1.25rem 0;<br/>
+        padding: 1rem 1.25rem;<br/>
+        font-size: 0.682em;
+    </div>
+</div>
+</body>
+</html>

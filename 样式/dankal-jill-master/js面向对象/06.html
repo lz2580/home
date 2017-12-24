@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型</title>
+    <script>
+        //原型：去改写对象下面公用的方法或者属性，让公用的方法或者属性在内存中存在一份（提高性能）
+        /*
+        原型：css中的class
+        普通方法：css中的style
+        可见普通方法优先级高于原型
+        */
+
+        //普通方法栗子
+        var arr = [1,2,3,4,5];
+        var arr2 = [2,2,3,3,2];
+        arr.sum = function () {
+            var result = 0;
+            for(var i=0;i<this.length;i++){
+                result += this[i];
+            }
+            return result;
+        }
+        arr2.sum = function () {
+            var result = 0;
+            for(var i=0;i<this.length;i++){
+                result += this[i];
+            }
+            return result;
+        }
+        alert(arr.sum());//15
+        alert(arr2.sum());//12
+
+        //原型：prototype:要写在构造函数下面
+        var arr3 = [1,2,3,4,5];
+        var arr4 = [2,2,3,3,2];
+        Array.prototype.sum = function () {
+            var result = 0;
+            for(var i=0;i<this.length;i++){
+                result += this[i];
+            }
+            return result;
+        }
+        alert(arr3.sum());//调用方法同普通方法
+        alert(arr4.sum());
+
+        //普通方法优先级高于原型
+        var arr5 = [];
+        arr5.number = 10;
+        Array.prototype.number = 20;
+        alert(arr5.number);//10
+    </script>
+</head>
+<body>
+
+</body>
+</html>

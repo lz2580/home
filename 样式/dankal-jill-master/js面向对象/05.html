@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象引用</title>
+    <script>
+//赋值
+        var a = [1,2,3];
+        var b = [1,2,3];
+        alert(a === b); //false
+
+        //基本类型：赋值的时候只是值的复制
+        var c = 5;
+        var d = c;
+        d += 3;
+        alert(d);//8
+        alert(c);//5
+
+        //对象类型：赋值不仅是值的复制，而且也是引用的传递
+        var e = [1,2,3];
+        var f = e;
+        e.push(4);
+        alert(f);//[1,2,3,4]
+        alert(e);//[1,2,3,4]
+
+        var g = [1,2,3];
+        var h = e;
+        h = [1,2,3,4];//(在内存当中重新生存地址）
+        alert(h);//[1,2,3,4]
+        alert(g);//[1,2,3]
+
+//比较
+        //基本类型，值相同就可以
+        var i = 5;
+        var j = 5;
+        alert(i === j);//true
+
+        //对象类型：值和引用都相同才行
+        var k = [1,2,3];
+        var l = [1,2,3];//(在内存当中重新生存地址）
+        alert(k === l);//false
+
+        var m = [1,2,3];
+        var n = m;
+        alert(m == n);//true
+    </script>
+</head>
+<body>
+
+</body>
+</html>

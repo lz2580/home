@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>什么是包装对象</title>
+    <script>
+        var test = "test";
+        test.a = "hello";
+        console.log(test.a); //undefined
+        //为什么不是返回hello而是返回undefined ？ 不急，看看下面的
+        /*
+         定义：
+         在JavaScript中，“一切皆对象”，数组和函数本质上都是对象，就连三种原始类型的值——数值、字符串、布尔值——在一定条件下，也会自动转为对象，也就是原始类型的“包装对象”。
+         通俗来讲：
+         字符串，数值，字符串，这些单身狗看其它人都有对象，非常不爽，所以自己也搞了个对象，名字叫包装。
+
+         */
+
+         //一般来说，只有对象是可以对属性进行读写操作的。但是聪明的骚年，你有没有发现，平时我们用得很多的字符串方法和属性，都是直接通过”.”操作符访问的。比如
+        console.log("hello world".length); //11
+        console.log("this a string".indexOf("a"));//5
+
+        //其实，在我们调用这些方法和属性时，JS内部已经隐式地帮我们帮创建了一个包装对象了，以上的实际的情形应该是这样的：
+        console.log(new String("hello world").length); //11
+        console.log(new String("this a string").indexOf("a"));//5
+
+        //但是两者还是有区别的，
+        //区别1：
+        //浏览器自己隐式创建的包装对象和你显式创建的包装对象不严格相等。简单来说，虽然说表面JS对亲生的与领养的一样，但实际上，亲生的不等于领养的。
+        var a1 = "test",//浏览器自己隐式创建的包装对象
+            a2=new String("test");//显式创建的包装对象
+        console.log(a1 == a2);//true
+        console.log(a1 === a2);//false
+
+//        区别2：
+//        隐式创建的包装对象，在使用完后之后就会被抛弃了。简单来说就是，一个大大的负心汉，上完我，就抛弃，还重新去找其他对象。
+//        拿我们开头的那道题来说：
+//        test.a = "hello";
+//        这里隐式创建了一个包装对象，所以这里赋值不会报错。
+//        console.log(test.a);
+//        这里之前的包装对象已经被抛弃了，但是使用了"."运算符，所以又创建一个新的包装对象，但是这个对象的属性a并没有赋值，所以属性a的值是undefined。
+        //若是显式创建的包装对象，会怎样？
+        var test = new String("test");
+        test.a = "hello";
+        console.log(test.a); //hello
+
+        //说到实际运用中，有的浏览器性能不是很好，比如说低版本IE，当频繁处理字符串时，效率会很低。所以很多时候，我们还不如直接显式地创建包装对象，防止浏览器过多地创建隐式的包装对象，提升性能。
+        //不推荐使用种方法
+        var example = "this is a example";
+        //推荐使用这种方法，提升性能。
+        var example2 = new String("this is a example");
+    </script>
+</head>
+<body>
+
+</body>
+</html>

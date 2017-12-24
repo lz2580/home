@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>方法继承</title>
+</head>
+<script>
+   //通过转换成基本类型：赋值的时候只是值的复制
+    //这里还会有更加复杂的写法，这里仅仅为了解释一下19，简单的写一下（可以参考一下jquery源码的这块拷贝继承）
+    function extend(obj1,obj2) {
+        for(var attr in obj2){
+            obj1[attr] = obj2[attr];
+        }
+    }
+</script>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+<body>
+<script>
+    (function(designSize) { //designSize为设计稿的尺寸(宽)
+        var doc = document,
+                docEl = doc.documentElement,
+                devWidth = docEl.clientWidth > 1080 ? 1080 : docEl.clientWidth,
+                dpr = devicePixelRatio || 1,  //如果不支持devicePixelRatio则默认为1
+                scale = 1 / dpr,
+            width = dpr * devWidth,
+            document.querySelector('meta[name="viewport"]')
+                    .setAttribute('content','width=' + width +
+                            ', initial-scale=' + scale +
+                            ', maximum-scale=' + scale +
+                            ', minimum-scale=' + scale +
+                            ', user-scalable=no');
+    docEl.style.fontSize = devWidth / (designSize / 100) * dpr + 'px';
+    })(750);
+</script>
+</body>
+</html>

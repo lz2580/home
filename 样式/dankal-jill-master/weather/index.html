@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>基于vue.js的一款天气APP demo</title>
+    <link rel="stylesheet" href="css/weather.css"/>
+
+</head>
+<body>
+<section id="weather" style="display: none;">
+    <header>
+        <h1 v-on:click="sortAddress">{{curCity}}</h1>
+        <h5>{{curWeather_data}}</h5>
+        <img v-bind:src="curDayPictureUrl"/>
+        <h5 class="big">{{curTemperature}}</h5>
+        <h5><span>{{curWeather}}</span> <span>{{curWind}}</span></h5>
+        <h5>实时空气质量：{{curPm25}}</h5>
+    </header>
+    <section class="other_weather">
+        <ul>
+            <li v-for="item in weatherList">
+                <span>{{item.listWeather[0]}}</span>
+                <span><img v-bind:src="item.listWeather[1]"/></span>
+                <span>{{item.listWeather[2]}}</span>
+                <span>{{item.listWeather[3]}}</span>
+                <span>{{item.listWeather[4]}}</span>
+            </li>
+        </ul>
+    </section>
+    <footer>
+        <ul>
+            <li v-for="item in suggestList">
+                <span class="red">{{item.listSuggest[0]}}</span> {{item.listSuggest[1]}}<br/>
+                <span class="red">{{item.listSuggest[2]}}：</span><br/>
+                {{item.listSuggest[3]}}
+            </li>
+        </ul>
+    </footer>
+    <section class="sorting-address">
+        <ul id="province" name="province">
+            <li v-for="item in provinceList" v-on:click="sortProvince(item.province[1])">{{item.province[0]}}</li>
+        </ul>
+        <ul id="city" name="city">
+            <li v-for="item in cityList" v-on:click="sortCity(item.city)">{{item.city}}</li>
+        </ul>
+    </section>
+</section>
+
+
+<script src="js/vue.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/weather.js"></script>
+</body>
+</html>

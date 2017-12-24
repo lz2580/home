@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承的拖拽</title>
+    <style>
+        #div1{width:100px;height:100px;background: #0AD5C1;position: absolute}
+        #div2{width:100px;height:200px;background: #6f83ff;position: absolute;left: 100px}
+    </style>
+    <script>
+        window.onload = function () {
+            var drag = new Drag('div1');
+            drag.init();
+
+            var Childdrag = new ChildDrag('div1');
+            Child  drag.init();
+        }
+
+        //父类
+        function Drag(id) {
+            //this对象
+            this.obj = document.getElementById(id);
+            this.disX = 0;
+            this.disY = 0;
+        }
+        Drag.prototype.init = function() {
+            //this对象
+            var This = this;
+            this.obj.onmousedown = function(ev){
+                var ev = ev || window.event;//紧跟事件函数
+                This.fnDown(ev);
+                return false;//紧跟事件函数
+            }
+
+        }
+        Drag.prototype.fnDown = function(ev) {
+            //this－this.obj 是do，修改指向
+            //var ev = ev || window.event;(紧跟事件函数)
+            var This = this;
+            this.disX = ev.clientX - this.obj.offsetLeft;
+            this.disY = ev.clientY - this.obj.offsetTop;
+
+            document.onmousemove = function(ev){
+                var ev = ev || window.event;
+                This.fnMove(ev);
+            }
+            document.onmouseup = this.fnUp;
+            //return false;//紧跟事件函数
+        }
+        Drag.prototype.fnMove = function(ev){
+            //this－this.obj 是do，修改指向
+
+            this.obj.style.left = ev.clientX - this.disX + 'px';
+            this.obj.style.top = ev.clientY - this.disY + 'px';
+        };
+        Drag.prototype.fnUp = function(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>

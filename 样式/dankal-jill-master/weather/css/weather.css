@@ -1,0 +1,130 @@
+li{list-style-type: none;}
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+	font-family: "arial" ;
+	font-size: 12px; 
+	letter-spacing: 1px;
+}
+#weather{
+	position: relative;
+}
+footer{
+	background: #F1F1F1;
+	color: #5E5E5E;
+	border-top:3px solid #FF8000 ;
+}
+footer ul{
+	width: 100%;
+	height: 100%;
+}
+footer ul li{
+	line-height: 35px;
+	border-top: 1px solid #FFFFFF;
+	/*text-align: center;*/
+	padding: 10px 28px;
+}
+footer ul li span.red{
+	color: #FF8000;
+}
+header{
+	width: 100%;
+	height: 255px;
+	background: #FF8000;
+	text-align: center;
+	padding-top:10px ;
+	color: #FFFFFF;
+}
+header h1{
+	font-size: 18px;
+	line-height: 40px;
+	
+}
+header h5{
+	font-size: 12px;
+	line-height: 25px;
+	font-weight: normal;
+}
+header h5.big{
+	font-size: 25px;
+	line-height: 50px;
+}
+header img{
+	width: 80px;
+	margin: 10px 0 0;
+}
+.other_weather{
+	width: 100%;
+	height: 100%;
+	overflow:auto;
+	line-height: 30px;
+	background: #f1f1f1;
+}
+.other_weather ul li{
+	padding-top: 10px;
+	height: 50px;
+	border-bottom: 1px solid #FFFFFF;
+}
+.other_weather ul li img{
+	vertical-align: middle;
+	height: 25px;
+}
+.other_weather ul li span{
+	display: inline-block;
+	float: left;
+	width: 20%;
+	text-align: center;
+}
+.sorting-address{
+	position:fixed;
+	top: -50%;
+	width: 100%;
+	height: 50%;
+	z-index: 2;
+	-webkit-transition-duration: 0.4s;
+	background: #fff;
+}
+
+.sorting-address>ul{
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+	-webkit-transition-duration: 0.4s;
+}
+.sorting-address>ul>li{
+	height: 4rem;
+	line-height: 4rem;
+	font-size: 1.5rem;
+	padding-left: 1rem;
+	border-bottom: solid 1px #eee;
+}
+.sorting-address>ul#province{
+	background: #fff;
+	position: absolute;
+	z-index: 1;
+}
+.sorting-address>ul#city{
+	background: #eee;
+	position: absolute;
+	z-index: 2;
+	left: 100%;
+}
+.sorting-address>ul#city>li{
+	border-bottom: solid 1px #e5e5e5;
+}
+.fixed-top{
+	top:0rem;
+}
+.fixed-top::after{
+	content: "";
+	width: 100%;
+	height: 100%;
+	display: block;
+	background: rgba(0,0,0,0.2);
+	position: fixed;
+}

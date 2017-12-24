@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用单位px</title>
+    <style>
+        html {
+            padding: 22px;
+            background-color: #e6e5df;
+            font-size: 22px;
+            font-family: Georgia, serif;
+            color: #C50000;
+        }
+
+        .font_small {
+            margin-top: 22px;
+            border-top: 1px solid #cfcdc4;
+            border-left: 1px solid #cfcdc4;
+            padding: 22px 0 0 22px;
+            font-size: 17px;
+        }
+
+    </style>
+</head>
+<body>
+html { font-size: 22px; }
+<div class='font_small'>
+    .font_small { font-size: 17px; }
+    <div class='font_small'>
+        .font_small { font-size: 17px; }
+        <div class='font_small'>
+            .font_small { font-size: 17px; }
+        </div>
+    </div>
+</div>
+</body>
+</html>

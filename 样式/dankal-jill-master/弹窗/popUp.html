@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pop-up</title>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/pop-up_layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/pop-up_layer.css">
+</head>
+<body>
+
+
+<!--无触发事件弹窗-->
+<div class="pop-up_layer popUp1">
+    <div class="layer_main">
+        <p class="layer_content">关注公众号，并点击关注可获得优惠券哦</p>
+        <div class="pop-up-footer">
+            <button class="btn_close">好</button>
+        </div>
+    </div>
+</div>
+
+
+<!--有触发事件弹窗-->
+<!--注意：
+触发事件按钮必须加上：data-popUp="name"
+对应触发事件弹窗加上：data-popUp="name"
+且name值相同对应
+-->
+<button class="attention-btn btn_click_up" data-popUp="btn1"type="button">关注</button>
+
+<div class="pop-up_layer popUp" data-popUp="btn1">
+    <div class="layer_main">
+        <p class="layer_content">关注公众号，并点击关注可获得优惠券哦</p>
+        <div class="pop-up-footer">
+            <button class="btn_close">好</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        //调用弹窗
+        /*必填三参数：
+         1、触发事件按钮的class(如果不需要事件触发，第一个参数填popUpAuto)，
+         2、弹窗外框class，
+         3、弹窗弹出方式(普通：popUp-common,淡入：popUp-fade,下移：popUp-up)
+         */
+        //自发触发弹窗
+        popUp("popUpAuto","popUp1","popUp-fade");
+
+        //点击触发弹窗
+        $(".btn_click_up").click(function(){
+            popUp("btn_click_up","popUp","popUp-up");
+        });
+
+        //关闭弹窗
+        $(".btn_close").click(function(){
+            $(".pop-up_layer").fadeOut();
+        });
+
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        //constructor:查看对象的构造函数->数组的判断,其他类型的判断
+                function Aaa() {}
+                //下面的代码，每一个函数都会有，是程序自动生成的
+                //Aaa.prototype.constructor = Aaa;//若手动改了之后，就会被覆盖，但不建议，以防出现其他问题
+                //注意：只有constructor才是系统自动生成的，hasOwnProperty是通过原型链找到对应的
+                //如：alert(a1.hasOwnProperty === Object.prototype.hasOwnProperty);//true
+                var a1 = new Aaa()
+                alert(a1.constructor);//function Aaa() {}
+                var arr =[];
+                alert(arr.constructor);//function Array() { [native code] }
+                //数组判断
+                alert(arr.constructor === Array);//true
+
+        //避免修改constructor属性
+                function Bbb() {}
+                //在原型对象上添加处理，不影响Bbb.prototype.constructor
+                Bbb.prototype.name = 'jill';
+                Bbb.prototype.age = 18;
+                var b1 = new Bbb();
+                alert(b1.constructor);//function Bbb() {}
+                //json不是添加而是直接赋值，即重新赋值，系统自带的Bbb.prototype.constructor被覆盖掉了
+                Bbb.prototype = {
+                    constructor:Bbb,//重点注意：修正指向
+                    name:'jill',
+                    age : 18
+                }
+                var b1 = new Bbb();
+                alert(b1.constructor);//function Bbb() {}
+
+        //For in的时候有些属性是找不到的（系统属性找不到，自己写的是找得到的）
+                function Ccc(){
+
+                }
+                //Ccc.prototype.name = 'jill';//自己写的，找得到
+                for(var attr in Ccc.prototype){
+                    alert(attr);
+                }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+    <script>
+        /*
+        继承：子类不影响父类，子类可以继承父类的一些功能（代码服用）
+        属性继承：调用父类的构造函数 call
+        方法继承：for in  拷贝继承
+         */
+
+        //父类
+        function CreatePerson(name,sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+        CreatePerson.prototype.showName = function () {
+            alert(this.name);
+        }
+        var p1 = new CreatePerson('jill','girl');
+        p1.showName();
+
+        //子类
+        function CreateStar(name,sex,join) {
+//            属性继承
+            CreatePerson.call(this,name,sex);
+            this.join = join;
+        }
+//        方法继承
+        var CreateP = {};
+        for(var attr in )
+//        CreatePerson.prototype = CreateStar.prototype;//对象类型赋值：赋值不仅是值的复制，而且也是引用的传递，违背了继承不影响原有对象的功能
+        extend(CreatePerson.prototype,CreateStar.prototype);
+            CreateStar.prototype.showJoin = function () {
+            alert(this.join);
+        }
+        var p2 =new CreateStar('jill1231','girl','web');
+        p2.showJoin();
+
+//        见20
+        function extend(obj1,obj2) {
+            for(var attr in obj2){
+                obj1[attr] = obj2[attr];
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
