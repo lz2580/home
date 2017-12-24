@@ -1,0 +1,11 @@
+modole.exports={
+  entry:{
+      animation:'./animation.js'
+  },
+    output:{
+      path:_dirname+'/build',
+        filename:'[name].js',
+        library:'animation',
+        libraryTarget:'umd'
+    }
+};
