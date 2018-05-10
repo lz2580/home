@@ -1,0 +1,9 @@
+<!--index.wxml-->
+<view class="container">
+  <image src='/images/avatar/1.png' class='user-avatar'></image>
+  <text class='user-name'><text style='color:red'>Hello</text>,七月</text>
+  <view class='moto-container' bindtap='onTop'>
+      <text class='moto'>开始</text>
+  </view>
+</view>
+ 
