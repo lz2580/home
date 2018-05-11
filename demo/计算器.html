@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        width: 600px;
+        height: 680px;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap
+    }
+
+    input {
+        width: 580px;
+        height: 80px;
+        text-align: right;
+        font-size: 52px;
+        border-radius: 20px;
+        outline: none;
+        border: 1px solid #ccc;
+        padding-right: 20px
+    }
+
+    .content div {
+        width: 120px;
+        height: 80px;
+        background-color: antiquewhite;
+        font-size: 52px;
+        font-weight: 800;
+        margin: 20px 0 20px 20px;
+        text-align: center;
+        line-height: 80px;
+        border-radius: 10px;
+    }
+
+    #point,
+    #equal,
+    #minus {
+        width: 167px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <input type="text" id="field">
+        <div class="content">
+            <div class="symbol" id="plus">+</div>
+            <div class="symbol">-</div>
+            <div class="symbol">*</div>
+            <div class="symbol">/</div>
+            <div class="num">1</div>
+            <div class="num">2</div>
+            <div class="num">3</div>
+            <div class="symbol">AC</div>
+            <div class="num">4</div>
+            <div class="num">5</div>
+            <div class="num">6</div>
+            <div class="num" id="zero">0</div>
+            <div class="num">7</div>
+            <div class="num">8</div>
+            <div class="num">9</div>
+            <div class="symbol">←</div>
+            <div class="symbol" id="minus">+/-</div>
+            <div class="num" id="point">.</div>
+            <div class="symbol" id="equal">=</div>
+        </div>
+    </div>
+</body>
+<script>
+
+    let field = document.getElementById('field'),
+        num = document.getElementsByClassName('num'),
+        plus = document.getElementById('plus'),
+        equal = document.getElementById('equal'),
+        symbol = document.getElementsByClassName('symbol'),
+        zero = document.getElementById("zero"),
+        point = false,
+        firstNum = '',
+        result = 0,
+        secNum = new Array;
+
+    firstNumFnc()
+    function firstNumFnc() {
+        for (let i = 0; i < num.length; i++) {
+            num[i].onclick = function () {
+                if (this.innerHTML == '.' && (field.value == '0' || field.value == '')) {
+                    point = true;
+                    return field.value = 0 + '.';
+                } else if (this.innerHTML == '0' && field.value == '0') {
+                    return
+                } else if (this.innerHTML == "." && point) {
+                    return
+                } else {
+                    if (field.value.indexOf('.') == '-1') {
+                        point = false
+                    } else {
+                        point = true
+                    }
+                    var Num = field.value += this.innerHTML;
+                    if (Num[0] == 0 && Num[1] != '.') {
+                        firstNum = Num.substr(1)
+                        console.log(firstNum)
+                        field.value = firstNum
+                    }
+                }
+            };
+        };
+        return firstNum = field.value
+    };
+    // function secNumFnc() {
+    //     for (let i = 0; i < num.length; i++) {
+    //         num[i].onclick = function () {
+    //             if (this.innerHTML == "." && field.value == "") {
+    //                 return field.value = "0" + "."
+    //             } else if (this.innerHTML == "0" && field.value == "0") {
+    //                 return
+    //             } else {
+    //                 field.value = ""
+    //                 secNum = field.value += this.innerHTML;
+    //             }
+    //         };
+    //     };
+    //     return secNum
+    // };
+
+
+
+    for (let j = 0; j < symbol.length; j++) {
+        symbol[j].onclick = function () {
+            if (firstNumFnc() == '') {
+                return
+            } else {
+                secNum.push(firstNumFnc())
+                if (this.innerHTML == "+") {
+                    field.value = '';
+                    firstNumFnc();
+                    equal.onclick = function () {
+                       secNum.push(firstNumFnc());
+                        console.log(secNum)
+                        for (i = 0; i < secNum.length; i++) {
+                            console.log(secNum[i])
+                            field.value = '';
+                            result += parseFloat(secNum[i])
+                        }
+                        field.value = result
+                        secNum = []
+                        result = 0
+                        secNum.push(result+"") 
+                    }
+                }
+                //  else if (this.innerHTML == "-") {
+                //     field.value = '';
+                //     secNumFnc();
+                //     equal.onclick = function () {
+                //         field.value = firstNum = parseFloat(firstNum) - parseFloat(secNum)
+                //     }
+                // } else if (this.innerHTML == "*") {
+                //     field.value = '';
+                //     secNumFnc();
+                //     equal.onclick = function () {
+                //         field.value = firstNum = parseFloat(firstNum) * parseFloat(secNum)
+                //     }
+                // } else if (this.innerHTML == "/") {
+                //     field.value = '';
+                //     secNumFnc();
+                //     equal.onclick = function () {
+                //         field.value = firstNum = parseFloat(firstNum) / parseFloat(secNum)
+                //     }
+                // } else if (this.innerHTML == "AC") {
+                //     field.value = '';
+                //     secNum = "";
+                //     firstNum = ""
+                // }
+
+            }
+        }
+    }
+
+
+
+</script>
+
+</html>
