@@ -1,0 +1,5 @@
+# 忽略检测
+/build/
+/config/
+/dist/
+/*.js
