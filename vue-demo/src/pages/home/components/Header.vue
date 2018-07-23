@@ -7,16 +7,22 @@
           <span class="iconfont icon-search"></span>
           输入城市/景点/游玩主题
       </div>
+      <router-link to="/city">
       <div class="header-right">
-          城市
+          {{this.city}}
           <span class="iconfont arrow-icon">&#xe6a6;</span>
       </div>
+      </router-link>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  computed: {
+    ...mapState(['city'])
+  }
 }
 </script>
 <!-- scoped 局部样式 -->
@@ -26,7 +32,7 @@ export default {
 /*组件中使用别名 别名前需加~ 波浪线*/
 .header
   display flex
-  line-height .86rem
+  line-height $headerHeight
   background $bgColor
   color #fff
   .header-left
@@ -46,9 +52,11 @@ export default {
     padding-left .2rem
     color #ccc
   .header-right
-    width 1.24rem
+    min-width 1.04rem
+    padding 0 .1rem
     float right
     text-align center
+    color #fff
     .arrow-icon
       margin-left -.04rem
 </style>
